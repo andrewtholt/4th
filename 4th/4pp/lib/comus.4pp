@@ -1,0 +1,6 @@
+\ Common usage - Copyright 2014 J.L. Bezemer
+\ You can redistribute this file and/or modify it under
+\ the terms of the GNU General Public License
+
+:macro +to >#> @dup _#_ + TO _#_ ;
+:macro rdrop r> drop ;

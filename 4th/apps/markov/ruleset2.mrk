@@ -1,0 +1,10 @@
+# Slightly modified from the rules on Wikipedia
+rules
+"A" -> "apple"
+"B" -> "bag"
+"S" -> ."shop"
+"T" -> "the"
+"the shop" -> "my brother"
+"a never used" -> ."terminating rule"
+
+= I bought a B of As from T S.

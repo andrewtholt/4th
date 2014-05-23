@@ -1,0 +1,197 @@
+body {
+        font: 90% sans-serif;
+        background: #f9f9f9;
+        color: black;
+        margin: 10px 5%;
+        padding: 20px;
+        line-height: 1.5em;
+}
+
+a {
+        text-decoration: none;
+        background: none;
+}
+
+a:link {
+        color: #0030c0;
+}
+
+a:visited {
+        color: #603090;
+}
+
+a:active {
+        color: #ffa000;
+}
+
+a:hover {
+        text-decoration: underline;
+}
+
+h1 {
+        margin-top: 1em;
+        line-height: 1.5em;
+}
+
+table {
+        display: inline-table;
+        text-align: center;
+        border-collapse: collapse;
+        margin-top: 1em;
+        margin-bottom: 1em;
+}
+
+td {
+        padding: 1ex;
+        border: thin solid #f0f0f0;
+}
+
+th {
+        border-bottom: thin solid #c0c0c0;
+        background: #ffffff;
+        font-weight: bold;
+}
+
+h2 {
+        line-height: 1.4em;
+}
+
+pre {
+        margin: 0.5em 3em;
+        padding: 0em;
+        width: auto;
+        font-family: monospace;
+        line-height: 1.5em;
+}
+
+dt {
+        font-weight: bold;
+}
+
+div.alerts table {
+        text-align: center;
+        font-family: Verdana;
+        font-weight: normal;
+        font-size: 11px;
+        color: #404040;
+        width: 260px;
+        background-color: #fafafa;
+        border: 1px #d79900 solid;
+        border-collapse: collapse;
+        border-spacing: 0px;
+}
+
+
+div.alerts td {
+        border-bottom: 2px solid #d79900;
+        background-color: #fff2ba;
+        text-align: center;
+        font-family: Verdana;
+        font-weight: bold;
+        font-size: 11px;
+        color: #404040;
+}
+
+div.alerts th {
+        text-align: left;
+        font-family: Verdana, sans-serif, Arial;
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 12px;
+        color: #404040;
+        background-color: #fafafa;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+}
+
+div.plain table {
+        width: 50%;
+
+}
+
+div.plain td {
+        padding: 5px 5px 5px 0;
+        vertical-align: top;
+}
+
+div.plain th {
+        padding-right: 10px;
+        text-align: left;
+}
+
+div.fancy table {
+        border: 1px solid #e3e3e3;
+        background-color: #f2f2f2;
+        width: 50%;
+        border-radius: 6px;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+}
+
+div.fancy td, div.fancy th {
+        padding: 5px;
+        color: #333;
+}
+
+div.fancy th {
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Helvetica, Arial, sans-serif;
+        padding: .2em 0 .2em .5em;
+        text-align: left;
+        color: #4B4B4B;
+        background-color: #C8C8C8;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#e3e3e3), color-stop(.6,#B3B3B3));
+        background-image: -moz-linear-gradient(top, #D6D6D6, #B0B0B0, #B3B3B3 90%);
+        border-bottom: solid 1px #999;
+        font-size: 17px;
+        line-height: 20px;
+        font-style: normal;
+        font-weight: normal;
+        text-align: left;
+        text-shadow: white 1px 1px 1px;
+}
+
+div.fancy td {
+        line-height: 20px;
+        text-align: left;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        border-bottom: 1px solid #fff;
+        border-top: 1px solid #fff;
+}
+
+div.fancy td:hover {
+        background-color: #fff;
+}
+
+div.elegant table {
+        width: 50%
+        border: 1px solid #B0B0B0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent;
+}
+
+div.elegant th {
+        background: -moz-linear-gradient(top, #F0F0F0 0, #DBDBDB 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F0F0F0), color-stop(100%, #DBDBDB));
+        border: 1px solid #B0B0B0;
+        text-align: left;
+        color: #444;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 3px 10px;
+}
+
+div.elegant td {
+        padding: 3px 10px;
+}
+
+div.elegant tr:nth-child(even) {
+        background: #F2F2F2;
+}

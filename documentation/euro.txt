@@ -1,0 +1,95 @@
+Euro Calculator                          4tH version 3.3a, release '99-04-03
+
+
+1. Disclaimer
+-------------
+THIS PROGRAM IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+EITHER IMPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE. THE ENTIRE RISK AS TO THE QUALITY AND
+PERFORMANCE OF THIS PROGRAM IS WITH YOU. THE AUTHOR DOES NOT
+WARRANT THAT OPERATION OF THIS PROGRAM WILL BE UNINTERRUPTED OR
+ERROR FREE. IN NO EVENT WILL THE DISTRIBUTOR OR AUTHOR OF THIS
+PROGRAM BE LIABLE FOR ANY DAMAGES, INCLUDING ANY LOST PROFITS,
+LOST SAVINGS OR ANY OTHER INCIDENTAL OR CONSEQUENTIAL DAMAGES
+ARISING OUT OF THE USE OR INABILITY TO USE THIS PROGRAM, EVEN IF
+THE AUTHOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES,
+OR FOR ANY OTHER CLAIM BY ANY OTHER PARTY. THE AUTHOR EXPLICITLY
+STATES THAT THE RESULTS OF THIS PROGRAM MAY NOT BE ACCURATE AND
+DISCOURAGES ITS USE IN ENVIRONMENTS WHERE CONFORMITY WITH COUNCIL
+DIRECTIVE CE 1103/97 IS REQUIRED!
+
+
+2. Technical architecture
+-------------------------
+This program is written in 4tH, which is based on the Forth
+programming language. 4tH doesn't support floating point
+arithmetic, so this Euro calculator uses 32 bit integer
+arithmetic, which has a few drawbacks. In some cases, significant
+digits are lost, so the result is smaller than expected. This is
+called overflow. In other cases the result is not completely
+accurate. Therefore, we strongly advise you *NOT* to use this
+calculator for commercial purposes.
+
+In order to minimize these effects this program uses a technology
+called proportional scaling. This ensures that you can use this
+calculator for calculations in the range of -2500 Euro and 2500
+Euro independent of the currency and that the accuracy stays
+within a percent of a percent.
+
+
+3. Using the calculator
+-----------------------
+The calculator is command driven and behaves like a Hewlett-
+Packard calculator. That means that the operator comes after the
+operands instead of between them. The denomination comes after
+the amount. The amount is entered in 1/100 units, e.g. this will
+put DM 100 on the calculator stack:
+
+      10000 DEM
+
+The denominations currently supported are: NLG, BEF, DEM, ITL,
+PTE, FIM, IEP, FRF, ESP, ATS, LUF and EUR. In order to display
+the top of the calculator stack, just put a period in front of
+the denomination, e.g. to convert DM 100 to Euro you have to
+enter:
+
+      10000 DEM .EUR
+
+The Euro calculator supports these operators: +, -, * and /. E.g.
+to add DM 100 to NLG 100 and display the result in ITL you have
+to enter:
+
+      10000 DEM 10000 NLG + .ITL
+
+Or if you have to pay NLG 29.95 and only have NLG 25.00 plus a
+few DEMs in your pocket, this will tell you how much DEM is left
+to pay:
+
+      2995 NLG 2500 NLG - .DEM
+
+If you make an error, the calculator will issue an error message,
+otherwise it will print "OK" on the screen. If you need any help,
+just enter:
+
+      help
+
+The program will then issue a few lines, which may give you a few
+hints.
+
+
+4. Pedigree
+-----------
+This program was created with the 4tH toolkit. If you need more
+information on the 4tH toolkit, please visit our website:
+
+      http://visitweb.com/hansoft
+
+You can download the toolkit free of charge, along with
+additional programs and documentation. Please note the "TERMS AND
+CONDITIONS", which apply to the 4tH toolkit and are included in
+the package.
+
+                         --- DOCUMENT ENDS HERE ---
+
+                         Copyright 1999 J.L. Bezemer

@@ -1,0 +1,41 @@
+# Unary Multiplication Engine, for testing Markov Algorithm implementations
+# By Donal Fellows.
+# Unary addition engine
+rules
+"_+1" -> "_1+"
+"1+1" -> "11+"
+
+# Pass for converting from the splitting of multiplication into ordinary
+# addition
+rules
+"1!" -> "!1"
+",!" -> "!+"
+"_!" -> "_"
+
+# Unary multiplication by duplicating left side, right side times
+rules
+"1*1" -> "x,@y"
+"1x" -> "xX"
+"X," -> "1,1"
+"X1" -> "1X"
+"_x" -> "_X"
+",x" -> ",X"
+"y1" -> "1y"
+"y_" -> "_"
+
+# Next phase of applying
+rules
+"1@1" -> "x,@y"
+"1@_" -> "@_"
+",@_" -> "!_"
+"++" -> "+"
+
+# Termination cleanup for addition
+rules
+"_1" -> "1"
+"1+_" -> "1"
+"_+_" -> ""
+
+= _1111*11111_
+
+# Outputs: 11111111111111111111

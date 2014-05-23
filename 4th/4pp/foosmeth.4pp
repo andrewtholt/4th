@@ -1,0 +1,48 @@
+\ Preprocessor FOOS demo - Copyright 2013 J.L. Bezemer
+\ You can redistribute this file and/or modify it under
+\ the terms of the GNU General Public License
+
+\ http://rosettacode.org/wiki/Call_an_object_method
+
+include lib/compare.4th
+include 4pp/lib/foos.4pp
+
+[ASSERT]                               \ enable assertions
+
+:: Cat
+   class
+     virtual: dynamicCat               \ virtual method
+     method:  staticCat                \ static method
+   end-class {
+
+    :method  staticCat { 2 } ;method   \ static method
+    :virtual dynamicCat { s" Mew!" } ;method
+  }                                    \ for unrelated classes,
+;                                      \ method names have to differ
+
+:: Dog
+   class
+     virtual: dynamicDog               \ virtual method
+     method:  staticDog                \ static method
+   end-class {
+
+    :method  staticDog { 5 } ;method
+    :virtual dynamicDog { s" Woof!" } ;method
+  }                                    \ for unrelated classes,
+;                                      \ method names have to differ
+
+static Cat c                           \ create two static objects
+static Dog d
+
+: main
+  assert( class -> staticCat 2 = )     \ check for valid method return
+  assert( class -> staticDog 5 = )     \ of a static method
+
+  assert( c -> staticCat 2 = )         \ check for valid method return
+  assert( d -> staticDog 5 = )         \ of a static method
+
+  assert( c => dynamicCat s" Mew!"  compare 0= )
+  assert( d => dynamicDog s" Woof!" compare 0= )
+;                                      \ same for dynamic methods
+
+main

@@ -1,0 +1,76 @@
+# 4tH Makefile (c) 1997 G.B. Stott
+#
+# This is for use with the linux operating system. Do the following:
+#
+# 1. Check the 5 variables below which may need to be changed.
+#
+# 2. As superuser, type `make pre-build' to install the headers as described
+#    in develop.doc section 2.
+#
+# 3. Type `make' to build everything.
+#
+# 4. As superuser, type `make install' to install the programs and library.
+#
+# 5. Type `make clean'. This restores the directory to the initial state.
+#
+
+# The following five variables may need to be changed
+LIBRARIES=/djgpp/lib
+INCLUDES=/djgpp/include
+BINARIES=/utils
+CC=$(CROSS)gcc
+CFLAGS= -DUNIX -fsigned-char -Wall -O3 -s
+
+# Cross compilation variables
+LD=$(CROSS)ld
+AR=$(CROSS)ar
+
+OBJ4TH = errs_4th.o save_4th.o load_4th.o free_4th.o comp_4th.o \
+	name_4th.o dump_4th.o exec_4th.o open_4th.o cgen_4th.o \
+	str2cell.o
+
+all: lib4th.a 4th 4tsh pp4th # 4thc 4thd 4thx 4thg
+
+lib4th.a: $(OBJ4TH)
+	$(AR) r $@ $(OBJ4TH)
+
+4th: lib4th.a 4th.o
+	$(CC) $(CFLAGS) -I. -o $@ $@.o -L. -l4th
+
+4tsh: lib4th.a 4tsh.o
+	$(CC) $(CFLAGS) -I. -o $@ $@.o -L. -l4th
+
+4thc: lib4th.a 4thc.o
+	$(CC) $(CFLAGS) -I. -o $@ $@.o -L. -l4th
+
+4thd: lib4th.a 4thd.o
+	$(CC) $(CFLAGS) -I. -o $@ $@.o -L. -l4th
+
+4thx: lib4th.a 4thx.o
+	$(CC) $(CFLAGS) -I. -o $@ $@.o -L. -l4th
+
+4thg: lib4th.a 4thg.o
+	$(CC) $(CFLAGS) -I. -o $@ $@.o -L. -l4th
+
+pp4th: lib4th.a pp4th.o
+	$(CC) $(CFLAGS) -I. -o $@ $@.o -L. -l4th
+
+mostlyclean:
+	-rm *.o 4th 4tsh pp4th # 4th?
+
+clean: mostlyclean
+	-rm lib4th.a
+
+# Superuser privileges will probably be required for the rest
+
+install: all
+	cp lib4th.a $(LIBRARIES)
+	cp 4th 4tsh pp4th $(BINARIES)
+
+uninstall:
+	-rm $(LIBRARIES)/lib4th.a
+	-rm $(BINARIES)/4th $(BINARIES)/4tsh $(BINARIES)/pp4th # $(BINARIES)/4thc $(BINARIES)/4thd $(BINARIES)/4thx $(BINARIES)/4thg
+
+.SUFFIXES:
+.SUFFIXES: .c .o
+

@@ -1,0 +1,27 @@
+\ Preprocessor FOOS array demo - Copyright 2013 J.L. Bezemer
+\ You can redistribute this file and/or modify it under
+\ the terms of the GNU General Public License
+
+include 4pp/lib/foos.4pp
+                                       \ simply extend the FOOS language
+:macro objects                         \ this allocates a fixed number
+  @1@ @2@ >1> >2> >2> >2> >1>          \ of static objects
+  ~~ |#| * constant ~~ |#|
+  ~~ |#| array #2# 
+  #2# ~~ |#| + #2# ?do i #1# ~~ |#| +loop
+;
+
+:macro th sizeof * + ;                 \ address the nth element of an array
+                                       \ N.B. overrrides built-in keyword
+:: Dog                                 \ define an example class
+   class                               \ with a single method
+     method: bark
+   end-class {
+     :method bark { ." Woof!" cr } ;method
+   }
+;
+
+10 constant #Dog                       \ number of dogs
+#Dog objects Dog Lassies               \ allocate and init the array
+                                       \ now put them all to work
+#Dog 0 ?do Lassies i th Dog -> bark loop

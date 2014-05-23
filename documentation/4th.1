@@ -1,0 +1,187 @@
+.TH 4th 1 "3.61.2" "Hans Bezemer"
+.SH "NAME"
+.LP 
+4th \- a portable Forth compiler supporting a (modified) subset of ANS\-Forth
+.SH "SYNTAX"
+.LP 
+4th [\fIoptions\fP] [\fIfile\fP] [\fIfile | argument .. argument\fP]
+.LP 
+4thx [\fIfile\fP] [\fIargument .. argument\fP]
+.SH "DESCRIPTION"
+.LP 
+4th is a menudriven bytecode compiler, virtual machine, decompiler, line editor, RPN calculator and C\-source generator rolled into one small program. You can use it to create portable bytecode programs, standalone executables or as a scripting language or a Forth\-to\-C translator. For details read
+the manual.
+.SH "OPTIONS"
+.LP 
+.TP 
+\fBm\fR
+enter interactive mode 
+.TP 
+\fBe\fR
+edit a 4tH screenfile 
+.TP
+\fBc\fR
+load a sourcefile (.4th) and compile it 
+.TP 
+\fBl\fR
+load an objectfile (.hx) 
+.TP 
+\fBd\fR
+decompile a 4tH program 
+.TP 
+\fBg\fR
+generate a C sourcefile (default: out.c) 
+.TP 
+\fBs\fR
+save a 4tH program (default: out.hx) 
+.TP 
+\fBx\fR
+execute a 4tH program 
+.TP 
+\fBv\fR
+enter verbose mode 
+.TP 
+\fBq\fR
+suppress copyright message
+.SH "EDITOR"
+.TP 
+\fBn D\fR
+Delete line n but hold it in PAD. Line 15 becomes free as all statements move up 1 line. 
+.TP 
+\fBn E\fR
+Erase line n with blanks. 
+.TP 
+\fBn I\fR
+Insert the text from PAD at line n, moving the old line n and following lines down. Line 15 is lost. 
+.TP 
+\fBn H\fR
+Hold line n at PAD (used by system more often than by user). 
+.TP 
+\fBn R\fR
+Replace line n with the text in PAD. 
+.TP 
+\fBn S\fR
+Spread at line n. Line n and following lines move down 1 line. Line n becomes blank. Line 15 is lost. 
+.TP 
+\fBn T\fR
+Display line n and copy it to PAD. 
+.TP 
+\fBn P text\fR
+Put 'text' at line n, overwriting its previous contents.
+.TP 
+\fBn LIST\fR
+List screen n and select it for editing: if screen n is not the current screen, it will request to load from memory. 
+.TP 
+\fBn CLEAR\fR
+Clear screen n with blanks and select it for editing. 
+.TP 
+\fBn INSERT\fR
+Insert screen n. The current screen n and all screens following it are moved down. The last screen is lost. Clear screen n with blanks and select it for editing. FLUSH Used at the end of an editing session to save the current screen to memory. 
+.TP 
+\fBUNDO\fR
+Used to reload the current screen again, thus undoing all changes since the last flush (triggered by CLEAR, FLUSH or LIST). 
+.TP 
+\fBFLUSH\fR
+Write updated screen to memory.
+.TP 
+\fBL\fR
+List the current screen. The cursor line is relisted after the screen listing to show the cursor position.
+.TP 
+\fBn M\fR
+Move the cursor by n characters and the cursor line. The position of the cursor on its line is shown by a ^ (caret). 
+.TP 
+\fBn W\fR
+Wipe n characters to the left of the cursor. 
+.TP 
+\fBTOP\fR
+Position the cursor at the start of the screen.
+.TP 
+\fBB\fR
+Used after F to back up the cursor by the length of the most recent text. 
+.TP 
+\fBC text\fR
+Copy in text to the cursor line at the cursor position. 
+.TP 
+\fBF text\fR
+Search forward from the current cursor position until string 'text' is found. The cursor is left at the end of the string and the cursor line printed. If the string is not found an error message is given and the cursor repositioned to the top of the screen. 
+.TP 
+\fBN\fR
+Find the next occurrence of the string found by an F command 
+.TP 
+\fBTILL text\fR
+Delete on the cursor line from the cursor till the end of string text. 
+.TP 
+\fBX text\fR
+Find and delete the next occurrence of the string 'text'.
+.TP 
+\fBEXPORT file\fR
+Saves the current contents of all screens to text\-file 'file'. No flushing is done.
+.TP 
+\fBWRITE\fR
+Saves the current contents of all screens to the block\-file. No flushing is done.
+.TP 
+\fBWQ\fR
+Flushes the current screen and saves the current contents of all screens to the block\-file. 
+.TP 
+\fBQ\fR
+Quits the editor without saving.
+.SH "FILES"
+.LP 
+\fB*.4th\fR;
+text files containing 4tH source  \fI(script)\fR
+.br 
+\fB*.scr\fR;
+block files containing 4tH source \fI(script)\fR
+.br 
+\fB*.hx\fR;
+Hcode eXecutables \fI(bytecode)\fR
+.br 
+\fB*.c\fR;
+C source files
+.SH "ENVIRONMENT VARIABLES"
+.TP
+\fBDIR4TH\fR
+If non-null the full pathname (including the trailing slash) for the 4tH root directory. Used only by the compiler.
+.SH "EXAMPLES"
+.LP 
+To compile a 4tH program and save the object code:
+.LP 
+\fI4th csv source.4th [object.hx]\fR
+.LP 
+To compile a 4tH program and execute it:
+.LP 
+\fI4th cx source.4th\fR
+.LP 
+To decompile object code:
+.LP 
+\fI4th ld object.hx\fR
+.LP
+To convert object code to C source:
+.LP 
+\fI4th lg object.hx [source.c]\fR
+.LP 
+To load and execute object code:
+.LP 
+\fI4th lx object.hx [arguments]\fR
+.LP 
+To load and execute object code without arguments:
+.LP 
+\fI4th object.hx\fR
+.LP 
+To edit a 4tH screenfile:
+.LP 
+\fI4th e source.scr\fR
+.LP 
+To enter interactive mode:
+.LP 
+\fI4th m source.scr\fR
+.LP 
+To enter interactive mode (without a screenfile):
+.LP 
+\fI4th\fR
+.SH "AUTHORS"
+.LP 
+4tH was written by Hans Bezemer <the.beez.speaks@gmail.com>
+.SH "SEE ALSO"
+.LP 
+gforth(1)

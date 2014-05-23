@@ -1,0 +1,55 @@
+\ Preprocessor FOOS demo - Copyright 2013 J.L. Bezemer
+\ You can redistribute this file and/or modify it under
+\ the terms of the GNU General Public License
+
+\ Derived from: http://rosettacode.org/wiki/Delegates#PHP
+
+include lib/constant.4th
+include 4pp/lib/foos.4pp
+
+:: Thingy                              \ interface for delegates
+   class                               \ a true delegate must implement it
+     virtual: thing                    \ implements the method 'thing'
+   end-class {}
+;
+                                       \ a real delegate
+:: Delegate                            ( -- a n)
+   extends Thingy
+   end-extends {                       \ implements the interface
+     :virtual thing { s" Delegate implementation" } ;method
+   }
+;
+                                       \ an imposter
+:: Imposter                            ( -- a n)
+   class
+     virtual: nothing                  \ does not implement 'thing'
+   end-class {
+     :virtual nothing { s" Imposter implementation" } ;method
+   }
+;
+                                       \ the delegator
+:: Delegator                           ( -- a n)
+   class
+     field:  delegated                 \ pointer to delegate object
+     virtual: operation                \ method 'operation'
+   end-class {
+
+     NULL this -> delegated !          \ default set delegated to NULL
+
+     :virtual operation {              \ check if delegated is set
+       s" Default implementation" this -> delegated @ dup NULL <>
+       if dup type@ kindof Thingy if => thing 2swap drop then then drop
+     } ;method                         \ if everything alright, call 'thing'
+   }
+;
+
+static Delegator a                     \ create the delegator
+a => operation type cr                 \ call 'operation'
+
+static Delegate b                      \ create a delegate
+b a -> delegated !                     \ now use it to delegate
+a => operation type cr                 \ call 'operation'
+
+static Imposter c                      \ create an imposter
+c a -> delegated !                     \ now use it to delegate
+a => operation type cr                 \ call 'operation'

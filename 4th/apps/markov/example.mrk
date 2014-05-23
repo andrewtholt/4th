@@ -1,0 +1,14 @@
+// Test this using
+// Markov example.mrk "a B F of A and A and A."
+// in the command line. It should output
+// a bag full of apples and apples and apples.
+
+rules
+"B" -> "bag"
+"F" -> "full"
+"A" -> "apples"
+
+// Production rules end with a "."
+// It is called terminating rule 
+
+= a B F of A and A and A.

@@ -1,0 +1,90 @@
+\ Preprocessor FOOS demo - Copyright 2012, 2013 J.L. Bezemer
+\ You can redistribute this file and/or modify it under
+\ the terms of the GNU General Public License
+
+include lib/memcell.4th                \ for ALLOCATE
+include lib/memchar.4th                \ for CALLOCATE
+include 4pp/lib/foos.4pp
+                                       \ allocate and store a string
+: place!                               ( a n addr --)
+  >r dup 1+ callocate abort" Out of heap space" >r r@ place r> r> !
+;                                      \ free some memory
+                                       ( addr --)
+: free? @ cfree abort" Cannot free memory" ;
+
+:: two-light                           \ create a two light traffic light
+   class
+     field:   Red                      \ red color string
+     field:   Green                    \ green color string
+     field:   State                    \ state of the traffic light
+     field:   #lights                  \ number of lights
+     field:   Description              \ description of lights
+     virtual: Switch                   \ change to the next state
+     virtual: Destroy                  \ destroy the object
+     method:  Show                     \ show the current state
+   end-class {
+
+     s" Red"   this -> Red   place!    \ save red light color
+     s" Green" this -> Green place!    \ save green light color
+                                       \ we need a table of descriptions
+     here ['] Green , ['] Red , this -> Description !
+
+     2 this -> #lights !               \ it has two lights
+     0 this -> State !                 \ set initial state
+
+     :method Show {                   \ show the current color
+        1+ cells this -> Description @ + @c cells this + @ count type cr
+     } ;method                         \ note we fix the description offset
+                                       \ (it's off by one cell)
+     :virtual Switch {
+        this -> State dup @ dup        \ get the current state
+        this -> Show 1+                \ show it, go to next state
+        this -> #lights @ mod swap !   \ and set it
+     } ;method                         \ assign it to the Switch method
+
+     :default Destroy {                \ free the green and red light
+        this -> Green free? this -> Red free?
+        this free abort" Cannot free object"
+     } ;method
+   }
+
+   private{ State }                    \ State is private
+;
+
+:: three-light                         \ create a three light traffic light
+   extends two-light                   \ based on the two light traffic light
+     field: Yellow                     \ add the color Yellow
+   end-extends {
+
+     s" Yellow" this -> Yellow place!  \ save yellow light color
+                                       \ we need a new table of descriptions
+     here ['] Green , ['] Yellow , ['] Red , this -> Description !
+
+     3 this -> #lights !               \ it has three lights
+
+     :virtual Destroy {                \ free all lights
+        this -> Yellow free?           \ destroy the yellow color
+        this <- Destroy                \ destroy all previous colors
+     } ;method
+   }
+;
+
+instance two-light DontWalk            \ define a pedestrian light
+
+." A pedestrian traffic light:" cr cr
+DontWalk => Switch                     \ go to the next state four times
+DontWalk => Switch
+DontWalk => Switch
+DontWalk => Switch
+
+DontWalk => Destroy cr                 \ now destroy it
+
+instance three-light TrafficLight      \ define a normal light
+
+." A normal traffic light:" cr cr
+TrafficLight => Switch                 \ go to the next state four times
+TrafficLight => Switch
+TrafficLight => Switch
+TrafficLight => Switch
+
+TrafficLight => Destroy cr             \ now destroy it

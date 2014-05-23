@@ -1,0 +1,11 @@
+// The following example shows the basic operation of a Markov
+// algorithm.
+
+rules
+"A" -> "apple"
+"B" -> "bag"
+"S" -> "shop"
+"T" -> "the"
+"the shop" -> "my brother"
+
+= I bought a B of As from T S.
