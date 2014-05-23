@@ -16,13 +16,19 @@
 *.exe
 *.out
 *.app
-ficl
-minficl
-main
-softcore/makesoftcore
+4th
+4tsh
 # Packages
 *.deb
 *.opk
+
+sources/editor.h
+sources/mon.h
+sources/pp4th
+sources/pp4th.h
+sources/teditor.h
+sources/zeditor.h
+sources/lib4th.a
 
 .c9revisions
 .settings
