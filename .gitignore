@@ -21,6 +21,7 @@
 # Packages
 *.deb
 *.opk
+*.ipk
 
 sources/editor.h
 sources/mon.h
@@ -30,7 +31,5 @@ sources/teditor.h
 sources/zeditor.h
 sources/lib4th.a
 
-.c9revisions
-.settings
 *.c~
 nothing added to commit but untracked files present (use "git add" to track)
