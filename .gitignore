@@ -1,0 +1,30 @@
+# Object files
+*.o
+*.ko
+
+# Libraries
+*.lib
+*.a
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+ficl
+minficl
+main
+softcore/makesoftcore
+# Packages
+*.deb
+*.opk
+
+.c9revisions
+.settings
+*.c~
+nothing added to commit but untracked files present (use "git add" to track)
