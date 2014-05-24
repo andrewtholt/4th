@@ -104,12 +104,12 @@ mon.h: stage
 	mv $(SOURCES)/$@ .
 
 mostlyclean:
-	-rm *.o stage stage.c editor.h zeditor.h teditor.h mon.h pp4th.h
+	-rm -f *.o stage stage.c editor.h zeditor.h teditor.h mon.h pp4th.h
 	$(MAKE) -C $(SOURCES) clean
 
 clean: mostlyclean
 	-rm -f lib4th.{a,so*}
-	-rm 4th 4tsh pp4th
+	-rm -f 4th 4tsh pp4th
 
 # Superuser privileges will probably be required for the rest
 
