@@ -1,0 +1,36 @@
+Name:   semtran
+Stack:  key -- semid
+Description:
+    Take the semaphore and return the identifier.  If the semaphore does not 
+    already exists it is created with rw-rw-rw- permissions.
+Note:
+    See man semget.
+
+Name:   rmsem
+Stack:  sid -- f
+Description:
+    Delete the semaphore identified by sem, 
+    return false on success, and true on failure.
+
+Name:   getsemvalue
+Stack:  sid -- n
+Description:
+    Return the current value of the semaphore sid.
+
+Name:   setsemvalue
+Stack:  n sid -- f
+Description:
+    Set the semaphore, sid, to the value n.  
+    Return false on success, true on failure.
+
+Name:   getsem
+Stack:  sid -- f
+Description:
+    Aquire the semaphore.  If nobody holds it then it is granted, otherwise
+    process blocks.  On an success return false, otherwise true.
+
+Name:   relsem
+Stack:  sid -- f
+Description:
+    Release the semaphore. On an sucess return false.
+
