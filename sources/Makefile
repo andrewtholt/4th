@@ -19,7 +19,8 @@ BINARIES=/usr/local/bin
 MANDIR=/usr/share/man
 DOCDIR=/usr/share/doc
 SOURCES=../4th
-CFLAGS= -DUNIX -fsigned-char -Wall -O3 -s
+CFLAGS= -DUNIX -fsigned-char -Wall -O3  -s
+# CFLAGS= -DUNIX -fsigned-char -Wall -g
 
 # Cross compilation variables
 LD=$(CROSS)ld
