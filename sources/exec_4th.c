@@ -318,9 +318,14 @@ Related  : dump_4th(), comp_4th()
 #include <time.h>
 
 #ifdef UNIX
+#warning "UNIX Defined"
 #include <sys/wait.h>
 #include <unistd.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/sem.h>
+
 #endif
 
 #define EOTu   4                       /* Unix end of text character */
@@ -383,6 +388,15 @@ else break;
 #ifdef NOUNLINK                        /* use ANSI equivalent instead */
 #define unlink(a) remove(a)
 #endif
+
+union semun {
+    int              val;    /* Value for SETVAL */
+    struct semid_ds *buf;    /* Buffer for IPC_STAT, IPC_SET */
+    unsigned short  *array;  /* Array for GETALL, SETALL */
+    struct seminfo  *__buf;  /* Buffer for IPC_INFO
+    (Linux-specific) */
+};
+
                                        /* define 4tH I/O device */
 typedef struct {
   char    Mode;                        /* standard opening mode */
@@ -922,6 +936,24 @@ This routine opens an input- or an output file.
   return (CELL_MIN);
 }
 
+/*
+ *   Returns 0 on error, non-zero on success.
+ */
+int semcall(int sid, int op) {
+    struct sembuf   sb;
+
+    sb.sem_num = 0;
+    sb.sem_op = op;
+    sb.sem_flg = 0;
+
+    if (semop(sid, &sb, 1) == -1) {
+        perror("4th: semcall ");
+        return (-1);
+    } else {
+        return (0);
+    }
+}
+
 
 /*
 Main routine and the only external.
@@ -1301,6 +1333,69 @@ called.
                            b = (cell) ftell (Stream [(int) a].Device);
                            if (b == -1L) throw (M4IOERR); else DPUSH (b);
                            NEXT;
+           CODE (SEMTRAN)     {
+                            int key;
+                            int sid;
+                            extern int errno;
+
+                            DSIZE(1);
+                            key = DPOP;
+                            if(key < 0) {
+                                DPUSH(-1);
+                            } else {
+                                sid = semget(key,1,0666 | IPC_CREAT);
+                                DPUSH(sid);
+                            }
+                           }
+                           NEXT;
+           CODE (SETSEMVALUE) {
+                            int sid;
+                            union semun arg;
+
+                            DSIZE(2);
+                            sid = DPOP;
+                            arg.val = DPOP;
+
+                            DPUSH(semctl(sid,0,SETVAL,arg));
+
+                            NEXT;
+           }
+           CODE (GETSEMVALUE) {
+                            int sid;
+
+                            DSIZE(1);
+                            sid = DPOP;
+                            DPUSH(semctl(sid,0,GETVAL));
+                            NEXT;
+                           }
+           CODE(GETSEM) {
+                            int sid;
+                            int res;
+                            DSIZE(1);
+
+                            sid = DPOP;
+                            res=semcall(sid, -1);
+                            DPUSH(res);
+                            NEXT;
+                           }
+           CODE(RELSEM) {
+
+                            int sid;
+                            DSIZE(1);
+                            sid = DPOP;
+                            DPUSH(semcall(sid, 1));
+                            NEXT;
+                           }
+           CODE (RMSEM) {
+               int sid;
+
+               DSIZE(1);
+               sid = DPOP;
+
+               DPUSH(semctl(sid, 0, IPC_RMID));
+               NEXT;
+
+           }
            CODE (FSEEK)    DSIZE (2); a = DPOP; b = DPOP;
                            UDEV (a); ODEV (a); SDEV (a);
                            c = b < 0L ? SEEK_END : SEEK_SET;

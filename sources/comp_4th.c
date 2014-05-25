@@ -914,6 +914,9 @@ static Word4th WordList [] =  {        /* list of all "simple" commands */
   { 5, "SHIFT", SHIFT },
   { 5, "LEAVE", LEAVE },
   { 5, "THROW", THROW },
+
+  { 5, "RMSEM", RMSEM },
+ 
   { 6, "REFILL", REFILL },
   { 6, "CMOVE>", CMOVE },
   { 6, "SPACES", SPACES },
@@ -922,9 +925,20 @@ static Word4th WordList [] =  {        /* list of all "simple" commands */
   { 6, "NEGATE", NEGATE },
   { 6, "ACCEPT", ACCEPT },
   { 6, "INVERT", INVERT },
+
+  { 6, "GETSEM", GETSEM },
+  { 6, "RELSEM", RELSEM },
+
   { 7, "EXECUTE", EXECUTE },
+
+  { 7, "SEMTRAN", SEMTRAN },
+
   { 8, "ENVIRON@", ENVFETCH },
   { 9, "-TRAILING", TRAILING },
+
+  { 11, "GETSEMVALUE",GETSEMVALUE },
+  { 11, "SETSEMVALUE",SETSEMVALUE },
+
   { 11, "DELETE-FILE", DELFILE },
   { CHAR_MAX, "", NOOP }        /* terminator of wordlist */
 };

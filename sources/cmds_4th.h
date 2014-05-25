@@ -142,9 +142,19 @@
 #define SMOVE    103
 #define RIGHT2   104
 #define ENVFETCH 105
+//
+// ATH Added
+//
+#define SEMTRAN 106
+#define GETSEMVALUE 107
+#define SETSEMVALUE 108
+#define GETSEM 109
+#define RELSEM 110
+#define RMSEM 111
 
 /* ranges */
-#define LastWord4th  ENVFETCH
+// #define LastWord4th  ENVFETCH
+#define LastWord4th  RMSEM
 #define LastMsg4th   M4CABORT
 
 /* flags */
