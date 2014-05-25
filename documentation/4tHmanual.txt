@@ -36399,11 +36399,8 @@ table in comp_4th(). The table with constants, which is embedded
 in GetConstant() has four members:
 
 1. Length byte
-
 2. Name
-
 3. Type
-
 4. Value
 
 The length-byte is used to quickly scan the table. All words are 
@@ -36424,11 +36421,8 @@ referenced in the source. To make comp_4th() compile a number, we
 need the token LITERAL. The four members are:
 
 1. Length byte = 6
-
 2. Name = "TWENTY"
-
 3. Type = LITERAL
-
 4. Value = 20
 
 Since every constant is a signed 32 bits number, we add the 
@@ -36441,24 +36435,17 @@ Now we have to insert this line into the table. Note that
 constants with the same length have to be grouped together:
 
 { 5, "INPUT", LITERAL, F4_READ },
-
 { 6, "OUTPUT", LITERAL, F4_WRITE },
-
 { 6, "APPEND", LITERAL, F4_APPND },
-
 { 7, "(ERROR)", LITERAL, CELL_MIN },
 
 We decide to put our constant behind "APPEND". Of course, we 
 could have put it behind "INPUT" or "OUTPUT" as well:
 
 { 5, "INPUT", LITERAL, F4_READ },
-
 { 6, "OUTPUT", LITERAL, F4_WRITE },
-
 { 6, "APPEND", LITERAL, F4_APPND },
-
 { 6, "TWENTY", LITERAL, 20L },
-
 { 7, "(ERROR)", LITERAL, CELL_MIN },
 
 Now recompile 4tH and run this simple program:
@@ -36479,11 +36466,8 @@ you compile this program:
 You will see that it actually compiles to:
 
 [0]   literal     (1)
-
 [1]   literal     (2)
-
 [2]   swap        (0)
-
 [3]   drop        (0)
 
 So, 'NIP' is actually expanded to 'SWAP' and 'DROP'. That is 
@@ -36516,23 +36500,15 @@ something else. That something is called the token. The tokens
 are defined in cmds_4th.h. Let's have a look:
 
 #define PAUSE    100
-
 #define VECTOR   101
-
 #define ENVIRON  102
-
 #define PLITERAL 103
-
 #define FSEEK    104
-
 #define FTELL    105
-
-  
 
 /* ranges */
 
 #define LastWord4th  FTELL
-
 #define LastMsg4th   M4CABORT
 
 Well, in fact you can place a new token anywhere, but then you 
@@ -36542,20 +36518,12 @@ The token "FTELL" has the number "105". Well, the next number is
 "106" and that is the number "NIP" is going to get. So we add:
 
 #define PAUSE    100
-
 #define VECTOR   101
-
 #define ENVIRON  102
-
 #define PLITERAL 103
-
 #define FSEEK    104
-
 #define FTELL    105
-
 #define NIP      106
-
- 
 
 /* ranges */
 
@@ -36576,9 +36544,7 @@ that the compiler can recognize and compile "NIP". Now we can
 complete the entry for GetWord():
 
 1. Length byte = 3
-
 2. Name = "NIP"
-
 3. Token = NIP
 
 So the complete entry reads:
@@ -36591,15 +36557,10 @@ decided that pasting "NIP" between "USE" and "SEEK" would be a
 good idea (but there are plenty of other places too):
 
 { 3, "HEX", HEX },
-
 { 3, "USE", USE },
-
 { 3, "NIP", NIP },
-
 { 4, "SEEK", FSEEK },
-
 { 4, "TELL", FTELL },
-
 { 3, "HEX", HEX },
 
 Are we done now? No. The compiler will recognize and compile 
