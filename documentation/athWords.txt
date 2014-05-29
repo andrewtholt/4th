@@ -34,3 +34,81 @@ Stack:  sid -- f
 Description:
     Release the semaphore. On an sucess return false.
 
+Name:   shmget
+Stack:  key size flags -- shmid
+Description:
+    Get the shared memory id for the region having the given key, size and
+    flags.
+NOTE:   
+    The flags are in octal, e.g. 1600 will create a segment, if it does not
+    already exist, that only processes owned by the user who created it can
+    read and write.  600 will fail, if the the segment does not exist.
+
+    See shmget(2).
+
+Name:   shmat
+Stack:  shmid -- ptr
+Description:
+    Attach the shared memory segment, shmid, to the processes address space
+    and return a pointer to it.
+
+Name:   shmdt
+Stack:  shmid -- f
+Description:
+    Dettach the shared memory segment, shmid, from the processes address space.
+    Returns false on success, true on failure.
+
+Name:   shmrm
+Stack:  shmid -- f
+Description:
+    Delete the shared memory segment from the system.
+    Returns false on success, true on failure.
+
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
+Name:   
+Stack:  
+Description:
+    
