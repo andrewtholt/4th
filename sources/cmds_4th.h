@@ -152,9 +152,16 @@
 #define RELSEM 110
 #define RMSEM 111
 
+#define SHMGET 112
+#define SHMAT 113
+#define SHMDT 114
+#define SHMRM 115
+#define MEMCAT 116    // Memory C@
+#define MEMCSTORE 117 // Memory C!
+
 /* ranges */
 // #define LastWord4th  ENVFETCH
-#define LastWord4th  RMSEM
+#define LastWord4th  MEMCSTORE
 #define LastMsg4th   M4CABORT
 
 /* flags */

@@ -325,6 +325,7 @@ Related  : dump_4th(), comp_4th()
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include <sys/shm.h>
 
 #endif
 
@@ -1396,6 +1397,66 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
 
                     }
                     NEXT;
+                    CODE(SHMGET) {
+                        int shm_id;
+                        int key;
+                        int size;
+                        int flags;
+
+                        DSIZE(3);
+                        flags = DPOP;
+                        size = DPOP;
+                        key = DPOP;
+                        shm_id = shmget(key, size, flags);
+
+                        DPUSH(shm_id);
+                    }
+                    NEXT;
+                    CODE(SHMAT) {
+                        long ptr;
+                        long shm_id;
+
+                        DSIZE(1);
+                        shm_id = DPOP;
+                        ptr = (long) shmat(shm_id,0, SHM_RND);
+                        DPUSH(ptr);
+                    }
+                    NEXT;
+                    CODE(SHMDT) {
+                        long shm_id;
+                        DSIZE(1);
+                        shm_id = DPOP;
+                        if( 0 == shmdt(shm_id) ) {
+                            DPUSH(-1);
+                        } else {
+                            DPUSH(0);
+                        }
+                    }
+                    NEXT;
+                    CODE(SHMRM) {
+                        long shm_id;
+                        int res;
+                        struct shmid_ds buf;
+
+                        DSIZE(1);
+                        shm_id = DPOP;
+                        res = shmctl(shm_id,IPC_STAT, &buf);
+                        if( 0 == res ) {
+                            res = shmctl(shm_id,IPC_RMID,&buf);
+                        }
+                        DPUSH( res );
+                    }
+                    NEXT;
+                    CODE(MEMCAT) {
+                        unsigned char *ptr;
+                        DSIZE(1);
+
+                        ptr=(unsigned char *)DPOP;
+
+                        DPUSH( *ptr);
+                    }
+                    NEXT;
+
                     CODE (FSEEK)    DSIZE (2); a = DPOP; b = DPOP;
                     UDEV (a); ODEV (a); SDEV (a);
                     c = b < 0L ? SEEK_END : SEEK_SET;
