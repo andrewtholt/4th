@@ -158,10 +158,14 @@
 #define SHMRM 115
 #define MEMCAT 116    // Memory C@
 #define MEMCSTORE 117 // Memory C!
+#define MEMWAT 118 // Memory 16 bit @
+#define MEMWSTORE 119 // Memory 16 bit !
+#define MEMAT 120 // Memory 16 bit @
+#define MEMSTORE 121 // Memory 16 bit !
 
 /* ranges */
 // #define LastWord4th  ENVFETCH
-#define LastWord4th  MEMCSTORE
+#define LastWord4th  MEMSTORE
 #define LastMsg4th   M4CABORT
 
 /* flags */
