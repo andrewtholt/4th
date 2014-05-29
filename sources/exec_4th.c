@@ -1456,6 +1456,18 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                         DPUSH( *ptr);
                     }
                     NEXT;
+                    CODE(MEMCSTORE) {
+                        unsigned char *ptr;
+                        unsigned c;
+
+                        DSIZE(2);
+                        ptr=(unsigned char *)DPOP;
+                        c=DPOP;
+
+                        *ptr=c;
+
+                    }
+                    NEXT;
 
                     CODE (FSEEK)    DSIZE (2); a = DPOP; b = DPOP;
                     UDEV (a); ODEV (a); SDEV (a);

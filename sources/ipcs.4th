@@ -16,10 +16,11 @@ include lib/dump.4th
     hex
     cr ." ptr : " ptr . cr
 
-    ptr mem-c@ . cr
+    ptr mem-c@ dup . cr
+    1+ ptr mem-c!
 
     shmid shmdt abort" shmdt"
-    shmid shmrm abort" shmrm"
+\    shmid shmrm abort" shmrm"
 ;
 
 main
