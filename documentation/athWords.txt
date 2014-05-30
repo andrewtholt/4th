@@ -64,13 +64,35 @@ Description:
     Delete the shared memory segment from the system.
     Returns false on success, true on failure.
 
-Name:   
-Stack:  
+Name:   mem@
+Stack:  ptr - n
 Description:
+    Return CELL sized data form the address given by the ptr.
     
-Name:   
-Stack:  
+Name:   mem!
+Stack:  n ptr --
 Description:
+    Write the CELL sized data n, to the address given by ptr.
+
+Name:   mem-c@
+Stack:  ptr - n
+Description:
+    Return unsigned char (8 bits) sized data form the address given by the ptr.
+    
+Name:   mem-c!
+Stack:  n ptr --
+Description:
+    Write the unsigned char sized data n, to the address given by ptr.
+
+Name:   mem-w@
+Stack:  ptr - n
+Description:
+    Return unsigned short (16 bits) sized data form the address given by the ptr.
+    
+Name:   mem-w!
+Stack:  n ptr --
+Description:
+    Write the unsigned short sized data n, to the address given by ptr.
     
 Name:   
 Stack:  

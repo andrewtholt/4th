@@ -902,6 +902,9 @@ static Word4th WordList [] =  {        /* list of all "simple" commands */
   { 4, "ARGS", ARGS },
   { 4, "ARGN", ARGN },
   { 4, "SYNC", FSYNC },
+  { 4, "MEM@", MEMAT },
+  { 4, "MEM!", MEMSTORE },
+
   { 5, "ABORT", QUIT },
   { 5, "PARSE", PARSE },
   { 5, "PLACE", PLACE },
@@ -915,6 +918,7 @@ static Word4th WordList [] =  {        /* list of all "simple" commands */
   { 5, "LEAVE", LEAVE },
   { 5, "THROW", THROW },
 
+
   { 5, "RMSEM", RMSEM },
   { 5, "SHMAT", SHMAT },
   { 5, "SHMDT", SHMDT },
@@ -922,6 +926,8 @@ static Word4th WordList [] =  {        /* list of all "simple" commands */
   { 6, "SHMGET", SHMGET },
   { 6, "MEM-C@", MEMCAT },
   { 6, "MEM-C!", MEMCSTORE },
+  { 6, "MEM-W@", MEMWAT },
+  { 6, "MEM-W!", MEMWSTORE },
  
   { 6, "REFILL", REFILL },
   { 6, "CMOVE>", CMOVE },

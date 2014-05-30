@@ -1458,7 +1458,7 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                     NEXT;
                     CODE(MEMCSTORE) {
                         unsigned char *ptr;
-                        unsigned c;
+                        unsigned char c;
 
                         DSIZE(2);
                         ptr=(unsigned char *)DPOP;
@@ -1466,6 +1466,43 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
 
                         *ptr=c;
 
+                    }
+                    NEXT;
+                    CODE(MEMWAT) {
+                        unsigned short *ptr;
+
+                        DSIZE(1);
+                        ptr = (unsigned short *)DPOP;
+                        DPUSH(*ptr);
+                    }
+                    NEXT;
+                    CODE(MEMWSTORE) {
+                        unsigned short *ptr;
+                        unsigned short c;
+
+                        DSIZE(2);
+                        ptr=(unsigned short *)DPOP;
+                        c=(unsigned short)DPOP;
+                        *ptr = c;
+                    }
+                    NEXT;
+                    CODE(MEMAT) {
+                        unsigned int *ptr;
+
+                        DSIZE(1);
+
+                        ptr = (unsigned int *)DPOP;
+                        DPUSH(*ptr);
+                    }
+                    NEXT;
+                    CODE(MEMSTORE) {
+                        unsigned int *ptr;
+                        unsigned int c;
+
+                        DSIZE(2);
+                        ptr=(unsigned int *)DPOP;
+                        c=(unsigned int)DPOP;
+                        *ptr = c;
                     }
                     NEXT;
 
