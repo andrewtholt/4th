@@ -917,6 +917,7 @@ static Word4th WordList [] =  {        /* list of all "simple" commands */
   { 5, "SHIFT", SHIFT },
   { 5, "LEAVE", LEAVE },
   { 5, "THROW", THROW },
+  { 5, "FCNTL", FCNTL },
 
 
   { 5, "RMSEM", RMSEM },

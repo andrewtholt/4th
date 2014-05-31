@@ -1505,6 +1505,22 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                         *ptr = c;
                     }
                     NEXT;
+                    CODE(FCNTL) {
+                        int cmd;
+                        int arg;
+                        int fd;
+                        int status=0;
+                        DSIZE(3);
+
+                        arg=DPOP;
+                        cmd=DPOP;
+                        fd=DPOP;
+                        status = fcntl(fd,cmd,arg);
+                        DPUSH(status);
+
+
+                    }
+                    NEXT;
 
                     CODE (FSEEK)    DSIZE (2); a = DPOP; b = DPOP;
                     UDEV (a); ODEV (a); SDEV (a);
