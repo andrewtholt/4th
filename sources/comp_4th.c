@@ -953,8 +953,10 @@ static Word4th WordList [] =  {        /* list of all "simple" commands */
   { 11, "SETSEMVALUE",SETSEMVALUE },
 
   { 11, "DELETE-FILE", DELFILE },
+
   {11,"SOCKET-SEND", SEND },
   {11,"SOCKET-RECV", RECV },
+  { 12, "SOCKET-CLOSE", SOCKETCLOSE },
   {14,"SOCKET-CONNECT", CONNECT },
   { CHAR_MAX, "", NOOP }        /* terminator of wordlist */
 };

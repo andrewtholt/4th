@@ -40,23 +40,21 @@ include lib/debug.4th
 
     s" fred" out-buffer swap move
     [hex] 0a out-buffer 4 + c!
+    out-buffer 10 dump cr
 
-    out-buffer 10 dump
+     out-buffer 5 sid socket-send abort" socket-send"
+     cr ." Chars sent " . cr
+     begin
+         in-buffer 6 sid socket-recv -1 =
+     while
+         counter 1+ to counter
+     repeat
+     cr ." Looped " counter . cr
+     .s
+     type
+     1 2 3 .s
 
-    out-buffer 5 sid socket-send abort" socket-send"
-    cr ." Chars sent " . cr
-
-    begin
-        in-buffer 6 sid socket-recv -1 =
-    while
-        counter 1+ to counter
-    repeat
-
-    cr ." Looped " counter . cr
-    .s
-    type
-    1 2 3 .s
-
+    sid socket-close
 ;
 
 main

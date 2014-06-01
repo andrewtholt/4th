@@ -1616,6 +1616,10 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                         }
                     }
                     NEXT;
+                    CODE(SOCKETCLOSE) {
+
+                    }
+                    NEXT;
 
                     CODE (FSEEK)    DSIZE (2); a = DPOP; b = DPOP;
                     UDEV (a); ODEV (a); SDEV (a);

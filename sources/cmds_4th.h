@@ -166,10 +166,11 @@
 #define CONNECT 123 // Socket connect
 #define SEND 124 // Socket send
 #define RECV 125 // Socket recieve
+#define SOCKETCLOSE 126
 
 /* ranges */
 // #define LastWord4th  ENVFETCH
-#define LastWord4th  RECV
+#define LastWord4th  SOCKETCLOSE
 #define LastMsg4th   M4CABORT
 
 /* flags */
