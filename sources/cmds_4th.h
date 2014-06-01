@@ -163,10 +163,11 @@
 #define MEMAT 120 // Memory 16 bit @
 #define MEMSTORE 121 // Memory 16 bit !
 #define FCNTL 122 
+#define CONNECT 123 // Socket connect
 
 /* ranges */
 // #define LastWord4th  ENVFETCH
-#define LastWord4th  FCNTL
+#define LastWord4th  CONNECT
 #define LastMsg4th   M4CABORT
 
 /* flags */
@@ -185,7 +186,7 @@
 
 /* header */
 #define Version4th   0x362
-#define App4th       0L
+#define App4th       0x658472L // ASCII for ATH
 
 /* compiler */
 #define LINKSIZ      64

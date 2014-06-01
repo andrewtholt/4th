@@ -260,8 +260,17 @@ Prototype: cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
 
 
 #include "4th.h"
-#include <stdlib.h>
 #include <ctype.h>
+#include <sys/in.h>
+
+
+#include <sys/types.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <netdb.h>
 
 #ifndef ARCHAIC
 int main (int argc, char **argv)
@@ -1519,6 +1528,27 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                         DPUSH(status);
 
 
+                    }
+                    NEXT;
+                    CODE(CONNECT) {
+                        char           *hostName;
+                        int             len, port;
+                        int             tmp;
+                        int             sock1;
+                        int             exitStatus = 0;
+                        struct sockaddr_in serv_addr;
+                        struct hostent *hp;
+
+                        DSIZE(3);
+
+                        port = DPOP;
+                        len = DPOP;
+                        hostName = DPOP;
+
+                        p = toCstring((cell)hostName,len);
+
+                        printf("String is %s\n",p);
+                        printf("Port is %2d\n", port);
                     }
                     NEXT;
 
