@@ -1,3 +1,8 @@
+include lib/ansmem.4th
+include lib/dump.4th
+include lib/debug.4th
+
+
 -1 value sid
 -1 value out-buffer
 -1 value in-buffer
@@ -18,39 +23,39 @@
    ." Hello" cr
    s" localhost" 1234 socket-connect abort" connect" to sid
 
-\   /buffer allocate abort" allocate" to in-buffer
-\   /buffer allocate abort" allocate" to out-buffer
+   /buffer allocate abort" allocate" to in-buffer
+   /buffer allocate abort" allocate" to out-buffer
 
-\   cr
-\   ." Socket id is " sid . cr
+   cr
+   ." Socket id is " sid . cr
 
-\    in-buffer  /buffer erase
-\    out-buffer /buffer erase
+    in-buffer  /buffer erase
+    out-buffer /buffer erase
 
-\    sid F_GETFL 0 fcntl  \ flags
-\    O_NONBLOCK or
-\    >r sid F_SETFL r> fcntl abort" fcntl"
+    sid F_GETFL 0 fcntl  \ flags
+    dup ." Before flags = " . cr
+    O_NONBLOCK or
+    dup ." After flags = " . cr
+    >r sid F_SETFL r> fcntl abort" fcntl"
 
-\    s" fred" out-buffer swap move
-\    0x0a out-buffer 4 + c!
+    s" fred" out-buffer swap move
+    [hex] 0a out-buffer 4 + c!
 
-\    out-buffer 10 dump
+    out-buffer 10 dump
 
-\    out-buffer 5 sid socket-send abort" socket-send"
-\    ." Chars sent " . cr
+    out-buffer 5 sid socket-send abort" socket-send"
+    cr ." Chars sent " . cr
 
-\    begin
-\        in-buffer 6 sid socket-recv -1 =
-\    while
-\        count 1+ to count
-\        1 ms
-\    repeat
+    begin
+        in-buffer 6 sid socket-recv -1 =
+    while
+        counter 1+ to counter
+    repeat
 
-\    ." Looped " count . cr
-
-\    in-buffer 6 sid socket-recv
-\    dup ." Char rx " . cr
-\    in-buffer swap dump
+    cr ." Looped " counter . cr
+    .s
+    type
+    1 2 3 .s
 
 ;
 

@@ -164,10 +164,12 @@
 #define MEMSTORE 121 // Memory 16 bit !
 #define FCNTL 122 
 #define CONNECT 123 // Socket connect
+#define SEND 124 // Socket send
+#define RECV 125 // Socket recieve
 
 /* ranges */
 // #define LastWord4th  ENVFETCH
-#define LastWord4th  CONNECT
+#define LastWord4th  RECV
 #define LastMsg4th   M4CABORT
 
 /* flags */

@@ -1569,6 +1569,53 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                         DPUSH(exitStatus);
                     }
                     NEXT;
+                    CODE(SEND) {
+                        char *buffer;
+                        int len;
+                        int flag = 0;
+                        int sock2;
+                        int status;
+
+                        DSIZE(3);
+
+                        sock2 = DPOP;
+                        len = DPOP;
+                        p = DPOP;
+
+                        buffer = toCstring((cell)p,len);
+
+                        status = send(sock2, buffer, len, 0);
+
+                        DPUSH(status);
+                        flag = (status < 0);
+                        DPUSH( flag );
+                    }
+                    NEXT;
+                    CODE(RECV) {
+                        char *msg;
+                        int len;
+                        int n;
+                        int sock2;
+
+                        DSIZE(3);
+
+                        sock2 = DPOP;
+                        len = DPOP;
+                        p = DPOP;
+
+                        msg = toCstring((cell)p,len);
+
+                        n = recv(sock2, msg, len, 0);
+
+                        if( n >= 0) {
+                            DPUSH(toPAD(msg));
+                            DPUSH( n );
+//                            SWAP;
+                        } else {
+                            DPUSH(-1);
+                        }
+                    }
+                    NEXT;
 
                     CODE (FSEEK)    DSIZE (2); a = DPOP; b = DPOP;
                     UDEV (a); ODEV (a); SDEV (a);
