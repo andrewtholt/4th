@@ -261,16 +261,7 @@ Prototype: cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
 
 #include "4th.h"
 #include <ctype.h>
-#include <sys/in.h>
 
-
-#include <sys/types.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <netdb.h>
 
 #ifndef ARCHAIC
 int main (int argc, char **argv)
@@ -329,12 +320,18 @@ Related  : dump_4th(), comp_4th()
 #ifdef UNIX
 #warning "UNIX Defined"
 #include <sys/wait.h>
-#include <unistd.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <sys/shm.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <netdb.h>
 
 #endif
 
@@ -1549,6 +1546,27 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
 
                         printf("String is %s\n",p);
                         printf("Port is %2d\n", port);
+
+                        hp = (struct hostent *) gethostbyname(p);
+                        memset((char *) &serv_addr, '\0', sizeof(serv_addr));
+                        serv_addr.sin_family = AF_INET;
+                        serv_addr.sin_port = htons(port);
+
+                        memcpy((char *) &serv_addr.sin_addr, (void *) hp->h_addr, hp->h_length);
+
+                        sock1 = socket(AF_INET, SOCK_STREAM, 0);
+                        if (sock1 < 0)      {
+                            exitStatus = -1;
+                        } else      {
+                            tmp = connect(sock1, (struct sockaddr *) & serv_addr, sizeof(serv_addr));
+                            if (tmp < 0)
+                                exitStatus = -1;
+                        }
+
+                        if( 0 == exitStatus) {
+                            DPUSH(sock1);
+                        }
+                        DPUSH(exitStatus);
                     }
                     NEXT;
 
