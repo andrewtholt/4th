@@ -18,6 +18,8 @@
 *.app
 4th
 4tsh
+# Other
+*.swp
 # Packages
 *.deb
 *.opk
