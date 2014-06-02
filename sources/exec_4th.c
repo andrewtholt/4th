@@ -332,6 +332,7 @@ Related  : dump_4th(), comp_4th()
 #include <string.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <fcntl.h>
 
 #endif
 
@@ -1540,7 +1541,7 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
 
                         port = DPOP;
                         len = DPOP;
-                        hostName = DPOP;
+                        hostName = (char *)DPOP;
 
                         p = toCstring((cell)hostName,len);
 
@@ -1580,7 +1581,7 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
 
                         sock2 = DPOP;
                         len = DPOP;
-                        p = DPOP;
+                        p = (void *)DPOP;
 
                         buffer = toCstring((cell)p,len);
 
@@ -1601,7 +1602,7 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
 
                         sock2 = DPOP;
                         len = DPOP;
-                        p = DPOP;
+                        p = (void *)DPOP;
 
                         msg = toCstring((cell)p,len);
 
