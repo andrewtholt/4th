@@ -4,8 +4,10 @@ include lib/debug.4th
 
 
 -1 value sid
+( 
 -1 value out-buffer
 -1 value in-buffer
+)
 
 0 value counter
  
@@ -19,12 +21,15 @@ include lib/debug.4th
  
 255 constant /buffer
 
+/buffer string in-buffer
+/buffer string out-buffer
+
 : main
    ." Hello" cr
    s" localhost" 1234 socket-connect abort" connect" to sid
 
-   /buffer allocate abort" allocate" to in-buffer
-   /buffer allocate abort" allocate" to out-buffer
+\   /buffer allocate abort" allocate" to in-buffer
+\   /buffer allocate abort" allocate" to out-buffer
 
    cr
    ." Socket id is " sid . cr
@@ -42,17 +47,17 @@ include lib/debug.4th
     [hex] 0a out-buffer 4 + c!
     out-buffer 10 dump cr
 
-     out-buffer 5 sid socket-send abort" socket-send"
-     cr ." Chars sent " . cr
-     begin
-         in-buffer 6 sid socket-recv -1 =
-     while
-         counter 1+ to counter
-     repeat
-     cr ." Looped " counter . cr
-     .s
-     type
-     1 2 3 .s
+    out-buffer 5 sid socket-send abort" socket-send"
+    cr ." Chars sent " . cr
+    begin
+        in-buffer 6 sid socket-recv -1 =
+    while
+        counter 1+ to counter
+    repeat
+
+    cr ." Looped " counter . cr
+
+    out-buffer count type .s cr
 
     sid socket-close
 ;
