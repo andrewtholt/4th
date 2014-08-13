@@ -1524,8 +1524,6 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                         fd=DPOP;
                         status = fcntl(fd,cmd,arg);
                         DPUSH(status);
-
-
                     }
                     NEXT;
                     CODE(CONNECT) {
@@ -1620,6 +1618,25 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                     }
                     NEXT;
                     CODE(SOCKETCLOSE) {
+
+                    }
+                    NEXT;
+                    CODE(SYSTEM) {
+                        int len;
+                        char *cmd;
+                        char *buffer;
+                        int rc;
+
+                        len = DPOP;
+                        cmd = (char *)DPOP;
+
+                        buffer = toCstring((cell)cmd,len);
+
+                        rc = system( buffer );
+//                        printf(">%s<\n",buffer);
+
+                        DPUSH(rc);
+
 
                     }
                     NEXT;

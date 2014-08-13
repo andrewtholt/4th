@@ -94,9 +94,11 @@ Stack:  n ptr --
 Description:
     Write the unsigned short sized data n, to the address given by ptr.
     
-Name:   
-Stack:  
+Name:   system
+Stack:  cmd len -- status
 Description:
+    Run the system  command given by cmd len and leave the status on the stack.
+    e.g. s" pwd" system
     
 Name:   
 Stack:  

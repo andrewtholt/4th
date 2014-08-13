@@ -929,6 +929,7 @@ static Word4th WordList [] =  {        /* list of all "simple" commands */
   { 6, "MEM-C!", MEMCSTORE },
   { 6, "MEM-W@", MEMWAT },
   { 6, "MEM-W!", MEMWSTORE },
+  { 6, "SYSTEM", SYSTEM },
  
   { 6, "REFILL", REFILL },
   { 6, "CMOVE>", CMOVE },
