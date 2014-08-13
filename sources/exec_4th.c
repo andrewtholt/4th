@@ -1607,18 +1607,14 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                         n = recv(sock2, msg, len, 0);
 
                         DPUSH(n);
-
-                        /*
-                        if( n >= 0) {
-                            DPUSH(n);
-                        } else {
-                            DPUSH(-1);
-                        }
-                        */
                     }
                     NEXT;
                     CODE(SOCKETCLOSE) {
+			int sock;
+			DSIZE(1);
 
+			sock=(int)DPOP;
+			close(sock);
                     }
                     NEXT;
                     CODE(SYSTEM) {
