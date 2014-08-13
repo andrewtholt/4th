@@ -1430,9 +1430,9 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                     }
                     NEXT;
                     CODE(SHMDT) {
-                        long shm_id;
+                        void *shm_id;
                         DSIZE(1);
-                        shm_id = DPOP;
+                        shm_id = (void *)DPOP;
                         if( 0 == shmdt(shm_id) ) {
                             DPUSH(-1);
                         } else {
@@ -1627,17 +1627,16 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                         char *buffer;
                         int rc;
 
+                        DSIZE(2);
+
                         len = DPOP;
                         cmd = (char *)DPOP;
 
                         buffer = toCstring((cell)cmd,len);
 
                         rc = system( buffer );
-//                        printf(">%s<\n",buffer);
 
                         DPUSH(rc);
-
-
                     }
                     NEXT;
 
