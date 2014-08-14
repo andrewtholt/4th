@@ -334,6 +334,11 @@ Related  : dump_4th(), comp_4th()
 #include <netdb.h>
 #include <fcntl.h>
 
+#ifdef MINIX
+#warning "MINIX Defined"
+#include <netinet/in.h>
+#endif
+
 #endif
 
 #define EOTu   4                       /* Unix end of text character */
@@ -1533,6 +1538,7 @@ cell exec_4th (Hcode *Object, unsigned ArgN, char **ArgS,
                         int             sock1;
                         int             exitStatus = 0;
                         struct sockaddr_in serv_addr;
+
                         struct hostent *hp;
 
                         DSIZE(3);
