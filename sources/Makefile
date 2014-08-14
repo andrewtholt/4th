@@ -130,7 +130,7 @@ install: mostlyinstall
 
 uninstall:
 	-rm -f $(LIBRARIES)/lib4th.{a,so*}
-	-rm $(BINARIES)/4th $(BINARIES)/4tsh $(BINARIES)/pp4th
+	-rm -f $(BINARIES)/4th $(BINARIES)/4tsh $(BINARIES)/pp4th
 
 .SUFFIXES:
 .SUFFIXES: .c .o
